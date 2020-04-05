@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  *
@@ -36,8 +37,9 @@ public class SurvivalEvents extends JavaPlugin {
         updatePlayersList(Bukkit.getOnlinePlayers());
         plugin = this;
         getCommand("survivalevent").setTabCompleter(new EventTabCompleter());
+        BukkitScheduler scheduler = getServer().getScheduler();
         
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
              refreshEvents();   
@@ -155,11 +157,13 @@ public class SurvivalEvents extends JavaPlugin {
         SurvivalEvent newEvent = new SurvivalEvent("Potion",mining,System.currentTimeMillis(),duration);
         ActiveEvents.put("Mining", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "A mining event has started!");
+        refreshEvents();
     }
     public void addItemEvent(ItemStack item, int duration) {
         SurvivalEvent newEvent = new SurvivalEvent("Item",item,System.currentTimeMillis(),duration);
         ActiveEvents.put("Item", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "An item event has started!");
+        refreshEvents();
     }
 
 }
