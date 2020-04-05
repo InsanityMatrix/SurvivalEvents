@@ -124,6 +124,18 @@ public class SurvivalEvents extends JavaPlugin {
             } else {
                 sender.sendMessage(ChatColor.RED.toString() + "This is not an event type");
             }
+        } else if(args.length == 4) {
+            if(args[0].equalsIgnoreCase("item")) {
+                Material item = Material.getMaterial(args[1]);
+                int amount = Integer.parseInt(args[2]);
+                ItemStack stack = new ItemStack(item, amount);
+                int duration = Integer.parseInt(args[3]);
+                addItemEvent(stack, duration);
+            } else {
+                sender.sendMessage(ChatColor.RED.toString() + "This is not an event type");
+            }
+        } else {
+            sender.sendMessage(ChatColor.RED.toString() + "Too many arguments!");
         }
     }
     public void removeEvent(String key) {
