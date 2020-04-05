@@ -42,6 +42,8 @@ public class SurvivalEvents extends JavaPlugin {
     public void onDisable() {
         
     }
+    
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("survivalevent")) {
             if(args.length == 0) {
