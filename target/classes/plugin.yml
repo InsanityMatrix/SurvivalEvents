@@ -1,0 +1,11 @@
+name: Survival Events
+main: com.insanitymatrix.survivalevents.SurvivalEvents
+version: 1.0
+author: InsanityMatrix
+commands:
+    survivalevent:
+        description: Starts an event of whatever you choose
+        usage: /survivalevent <event> [duration]
+        permission: survivalevents.event
+        permission-message: You don't have survivalevents.event
+    

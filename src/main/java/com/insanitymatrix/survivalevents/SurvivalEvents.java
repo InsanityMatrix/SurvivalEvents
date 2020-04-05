@@ -36,6 +36,13 @@ public class SurvivalEvents extends JavaPlugin {
         updatePlayersList(Bukkit.getOnlinePlayers());
         plugin = this;
         getCommand("survivalevent").setTabCompleter(new EventTabCompleter());
+        
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+             refreshEvents();   
+            }
+        }, 0L, (long)(20 * 5));
     }
     
     @Override
