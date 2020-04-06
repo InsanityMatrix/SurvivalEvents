@@ -67,9 +67,11 @@ public class SurvivalEvents extends JavaPlugin {
     }
     
     public void refreshEvents() {
+        getLogger().info("Refreshing Events");
         Set<String> eventKeys = ActiveEvents.keySet();
         long currentTime = System.currentTimeMillis();
         for(String key : eventKeys) {
+            getLogger().info("Executing " + key + " event");
             SurvivalEvent event = ActiveEvents.get(key);
             if(currentTime - event.getStart() < event.getDuration() * 1000) {
              //Event is still going on
