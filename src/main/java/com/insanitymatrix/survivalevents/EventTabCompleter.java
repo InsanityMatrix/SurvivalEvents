@@ -19,7 +19,8 @@ import org.bukkit.command.TabCompleter;
 public class EventTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("survivalevent")) {
+        if(command.getName().equalsIgnoreCase("survivalevent")
+                || command.getName().equalsIgnoreCase("sevent")) {
             List<String> list = new ArrayList<>();
             if(args.length == 0) {
                list.add("item");

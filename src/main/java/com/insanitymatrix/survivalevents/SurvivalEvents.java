@@ -37,6 +37,7 @@ public class SurvivalEvents extends JavaPlugin {
         updatePlayersList(Bukkit.getServer().getOnlinePlayers());
         plugin = this;
         getCommand("survivalevent").setTabCompleter(new EventTabCompleter());
+        getCommand("sevent").setTabCompleter(new EventTabCompleter());
         BukkitScheduler scheduler = getServer().getScheduler();
         
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -54,7 +55,8 @@ public class SurvivalEvents extends JavaPlugin {
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("survivalevent")) {
+        if(cmd.getName().equalsIgnoreCase("survivalevent")
+                || cmd.getName().equalsIgnoreCase("sevent")) {
             if(args.length == 0) {
                 sender.sendMessage(ChatColor.RED.toString() + "Not enough arguments to start an event.");
             } else {
@@ -168,6 +170,9 @@ public class SurvivalEvents extends JavaPlugin {
                 Material item = Material.getMaterial(args[1]);
                 int amount = Integer.parseInt(args[2]);
                 ItemStack stack = new ItemStack(item, amount);
+                if(args[3].equalsIgnoreCase("stop")) {
+                    ActiveEvents.remove("Item");
+                }
                 int duration = Integer.parseInt(args[3]);
                 addItemEvent(stack, duration);
             } else {

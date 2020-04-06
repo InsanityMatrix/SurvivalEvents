@@ -7,5 +7,9 @@ commands:
         description: Starts an event of whatever you choose
         usage: /survivalevent event [duration]
         permission: survivalevents.event
-        permission-message: You don't have survivalevents.event
-    
+        permission-message: You don't have permission to perform this command.
+    sevent:
+        description: Starts an event of whatever you choose
+        usage: /sevent event [duration]
+        permission: survivalevents.event
+        permission-message: You don't have permission to perform this command.
