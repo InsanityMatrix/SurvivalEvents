@@ -189,7 +189,7 @@ public class SurvivalEvents extends JavaPlugin {
     }
     public void addOceanEvent(int duration) {
         PotionEffect waterBreathing = new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0);
-        PotionEffect dolphinsGrace = new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 240, 0);
+        PotionEffect dolphinsGrace = new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 240, 1);
         PotionEffect[] potions = {waterBreathing,dolphinsGrace};
         SurvivalEvent newEvent = new SurvivalEvent("Potions", potions, System.currentTimeMillis(), duration);
         ActiveEvents.put("Ocean", newEvent);
