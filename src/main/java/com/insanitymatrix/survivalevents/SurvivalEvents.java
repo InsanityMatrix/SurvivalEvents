@@ -34,7 +34,7 @@ public class SurvivalEvents extends JavaPlugin {
     private ArrayList<Player> playersOnline = new ArrayList<>(); 
     @Override
     public void onEnable() {
-        updatePlayersList(Bukkit.getOnlinePlayers());
+        updatePlayersList(Bukkit.getServer().getOnlinePlayers());
         plugin = this;
         getCommand("survivalevent").setTabCompleter(new EventTabCompleter());
         BukkitScheduler scheduler = getServer().getScheduler();
@@ -67,6 +67,7 @@ public class SurvivalEvents extends JavaPlugin {
     }
     
     public void refreshEvents() {
+        updatePlayersList(Bukkit.getServer().getOnlinePlayers());
         Set<String> eventKeys = ActiveEvents.keySet();
         long currentTime = System.currentTimeMillis();
         for(String key : eventKeys) {
