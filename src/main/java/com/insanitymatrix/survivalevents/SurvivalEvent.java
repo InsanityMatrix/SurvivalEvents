@@ -17,12 +17,14 @@ public class SurvivalEvent {
     private PotionEffect potionEffect;
     private ItemStack item;
     private long Start;
+    private long lastBroadcast;
     private int Duration;
     
     public SurvivalEvent(String type, PotionEffect potionEffect, long start, int duration) {
         this.type = type;
         this.potionEffect = potionEffect;
         this.Start = start;
+        this.lastBroadcast = start;
         this.Duration = duration;
     }
     public SurvivalEvent(String type, ItemStack item, long start, int duration) {
@@ -62,6 +64,22 @@ public class SurvivalEvent {
 
     public void setDuration(int Duration) {
         this.Duration = Duration;
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
+    public long getLastBroadcast() {
+        return lastBroadcast;
+    }
+
+    public void setLastBroadcast(long lastBroadcast) {
+        this.lastBroadcast = lastBroadcast;
     }
     
 }

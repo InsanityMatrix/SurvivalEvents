@@ -71,14 +71,26 @@ public class SurvivalEvents extends JavaPlugin {
         Set<String> eventKeys = ActiveEvents.keySet();
         long currentTime = System.currentTimeMillis();
         for(String key : eventKeys) {
-            getLogger().info("Executing " + key + " event");
             SurvivalEvent event = ActiveEvents.get(key);
             if(currentTime - event.getStart() < event.getDuration() * 1000) {
              //Event is still going on
+             int timePassed = (int)((currentTime - event.getLastBroadcast())/1000);
+             if(timePassed > 300) {
+                 Bukkit.getServer().broadcastMessage(ChatColor.GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "The " + key + " event is still going on!");
+                 event.setLastBroadcast(currentTime);
+             }
+             
              if(event.getType().equals("Potion")) {
                  PotionEffect effect = event.getPotionEffect();
                  for(Player player : playersOnline) {
                      player.addPotionEffect(effect);
+                 }
+             } else if(event.getType().equals("Item")) {
+                 ItemStack item = event.getItem();
+                 if(currentTime == event.getLastBroadcast()) {
+                     for(Player player : playersOnline) {
+                         player.getInventory().addItem(item);
+                    }
                  }
              }
             } else {
@@ -106,7 +118,9 @@ public class SurvivalEvents extends JavaPlugin {
             String eventType = args[0];
             if(eventType.equalsIgnoreCase("Mining")) {
                 addMiningEvent(DEFAULT_EVENT_DURATION);
-            } else if(eventType.equalsIgnoreCase("item")) {
+            } else if(eventType.equalsIgnoreCase("Ocean")) {
+                addOceanEvent(DEFAULT_EVENT_DURATION);
+            }else if(eventType.equalsIgnoreCase("item")) {
                 sender.sendMessage(ChatColor.RED.toString() + "Not enough arguments for item event");
             }
         } else if (args.length == 2) {
@@ -120,11 +134,15 @@ public class SurvivalEvents extends JavaPlugin {
                    String eventKey = args[0];
                    if(eventKey.equalsIgnoreCase("Mining"))
                        removeEvent("Mining");
+                   else if(eventKey.equalsIgnoreCase("Ocean"))
+                       removeEvent("Ocean");
                 } else {
                     int dur = Integer.parseInt(duration);
                     String event = args[0];
                     if(event.equalsIgnoreCase("Mining")) {
                         addMiningEvent(dur);
+                    } else if (event.equalsIgnoreCase("Ocean")) {
+                        addOceanEvent(dur);
                     }
                 }
             }
@@ -155,11 +173,19 @@ public class SurvivalEvents extends JavaPlugin {
         ActiveEvents.remove(key);
     }
     public void addMiningEvent(int duration) {
-        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,160,1);
+        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,240,1);
         SurvivalEvent newEvent = new SurvivalEvent("Potion",mining,System.currentTimeMillis(),duration);
         ActiveEvents.put("Mining", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "A mining event has started!");
         refreshEvents();
+    }
+    public void addOceanEvent(int duration) {
+        PotionEffect waterBreathing = new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0);
+        SurvivalEvent newEvent = new SurvivalEvent("Potion", waterBreathing, System.currentTimeMillis(), duration);
+        ActiveEvents.put("Ocean", newEvent);
+        Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "An Ocean event has started!");
+        refreshEvents();
+        
     }
     public void addItemEvent(ItemStack item, int duration) {
         SurvivalEvent newEvent = new SurvivalEvent("Item",item,System.currentTimeMillis(),duration);

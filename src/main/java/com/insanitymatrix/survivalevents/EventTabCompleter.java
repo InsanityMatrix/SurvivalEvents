@@ -24,6 +24,7 @@ public class EventTabCompleter implements TabCompleter {
             if(args.length == 0) {
                list.add("item");
                list.add("mining");
+               list.add("ocean");
                return list;
             } else if(args.length == 2) {
                 if(args[0].equalsIgnoreCase("item")) {
@@ -32,7 +33,7 @@ public class EventTabCompleter implements TabCompleter {
                         list.add(material.toString());
                     }
                     return list;
-                }else if(args[0].equalsIgnoreCase("mining")) {
+                }else if(args[0].equalsIgnoreCase("mining") || args[0].equalsIgnoreCase("ocean")) {
                     list.add("3600");
                     list.add("7200");
                     list.add("10800");
