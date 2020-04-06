@@ -83,6 +83,7 @@ public class SurvivalEvents extends JavaPlugin {
              if(event.getType().equals("Potion")) {
                  PotionEffect effect = event.getPotionEffect();
                  for(Player player : playersOnline) {
+                     player.removePotionEffect(effect.getType());
                      player.addPotionEffect(effect);
                  }
              } else if(event.getType().equals("Item")) {
