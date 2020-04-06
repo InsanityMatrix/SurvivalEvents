@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 public class SurvivalEvent {
     private String type;
     private PotionEffect potionEffect;
+    private PotionEffect[] potionEffects;
     private ItemStack item;
     private long Start;
     private long lastBroadcast;
@@ -27,11 +28,26 @@ public class SurvivalEvent {
         this.lastBroadcast = start;
         this.Duration = duration;
     }
+    public SurvivalEvent(String type, PotionEffect[] potionEffects, long start, int duration) {
+        this.type = type;
+        this.potionEffects = potionEffects;
+        this.Start = start;
+        this.lastBroadcast = start;
+        this.Duration = duration;
+    }
     public SurvivalEvent(String type, ItemStack item, long start, int duration) {
         this.type = type;
         this.item = item;
         this.Start = start;
         this.Duration = duration;
+    }
+
+    public PotionEffect[] getPotionEffects() {
+        return potionEffects;
+    }
+
+    public void setPotionEffects(PotionEffect[] potionEffects) {
+        this.potionEffects = potionEffects;
     }
 
     public String getType() {

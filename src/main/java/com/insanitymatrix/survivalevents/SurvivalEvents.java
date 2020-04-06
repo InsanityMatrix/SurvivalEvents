@@ -93,6 +93,13 @@ public class SurvivalEvents extends JavaPlugin {
                          player.getInventory().addItem(item);
                     }
                  }
+             } else if(event.getType().equals("Potions")) {
+                 for(Player player : playersOnline) {
+                     for(PotionEffect effect : event.getPotionEffects()) {
+                         player.removePotionEffect(effect.getType());
+                         player.addPotionEffect(effect);
+                     }
+                 }
              }
             } else {
                 ActiveEvents.remove(key);
@@ -182,7 +189,9 @@ public class SurvivalEvents extends JavaPlugin {
     }
     public void addOceanEvent(int duration) {
         PotionEffect waterBreathing = new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0);
-        SurvivalEvent newEvent = new SurvivalEvent("Potion", waterBreathing, System.currentTimeMillis(), duration);
+        PotionEffect dolphinsGrace = new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 240, 0);
+        PotionEffect[] potions = {waterBreathing,dolphinsGrace};
+        SurvivalEvent newEvent = new SurvivalEvent("Potions", potions, System.currentTimeMillis(), duration);
         ActiveEvents.put("Ocean", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "An Ocean event has started!");
         refreshEvents();
