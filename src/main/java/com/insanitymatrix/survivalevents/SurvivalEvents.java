@@ -154,7 +154,7 @@ public class SurvivalEvents extends JavaPlugin {
         ActiveEvents.remove(key);
     }
     public void addMiningEvent(int duration) {
-        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,8,2);
+        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,160,1);
         SurvivalEvent newEvent = new SurvivalEvent("Potion",mining,System.currentTimeMillis(),duration);
         ActiveEvents.put("Mining", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "A mining event has started!");
