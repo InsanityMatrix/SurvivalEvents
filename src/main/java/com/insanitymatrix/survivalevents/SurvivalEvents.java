@@ -34,7 +34,7 @@ public class SurvivalEvents extends JavaPlugin {
     private ArrayList<Player> playersOnline = new ArrayList<>(); 
     @Override
     public void onEnable() {
-        updatePlayersList(Bukkit.getOnlinePlayers());
+        updatePlayersList(Bukkit.getServer().getOnlinePlayers());
         plugin = this;
         getCommand("survivalevent").setTabCompleter(new EventTabCompleter());
         BukkitScheduler scheduler = getServer().getScheduler();
@@ -44,7 +44,7 @@ public class SurvivalEvents extends JavaPlugin {
             public void run() {
              refreshEvents();   
             }
-        }, 0L, (long)(20 * 5));
+        }, 0L, (long)(20 * 2));
     }
     
     @Override
@@ -67,7 +67,7 @@ public class SurvivalEvents extends JavaPlugin {
     }
     
     public void refreshEvents() {
-        getLogger().info("Refreshing Events");
+        updatePlayersList(Bukkit.getServer().getOnlinePlayers());
         Set<String> eventKeys = ActiveEvents.keySet();
         long currentTime = System.currentTimeMillis();
         for(String key : eventKeys) {
@@ -155,7 +155,7 @@ public class SurvivalEvents extends JavaPlugin {
         ActiveEvents.remove(key);
     }
     public void addMiningEvent(int duration) {
-        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,8,2);
+        PotionEffect mining = new PotionEffect(PotionEffectType.FAST_DIGGING,160,1);
         SurvivalEvent newEvent = new SurvivalEvent("Potion",mining,System.currentTimeMillis(),duration);
         ActiveEvents.put("Mining", newEvent);
         Bukkit.getServer().broadcastMessage(ChatColor.DARK_GREEN.toString() + "[Survival Events] " + ChatColor.YELLOW.toString() + "A mining event has started!");
