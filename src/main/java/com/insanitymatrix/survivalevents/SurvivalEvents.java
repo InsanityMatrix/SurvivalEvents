@@ -44,7 +44,7 @@ public class SurvivalEvents extends JavaPlugin {
             public void run() {
              refreshEvents();   
             }
-        }, 0L, (long)(20 * 5));
+        }, 0L, (long)(20 * 2));
     }
     
     @Override
